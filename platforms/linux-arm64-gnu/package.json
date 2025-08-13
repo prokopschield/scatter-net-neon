@@ -1,0 +1,40 @@
+{
+    "name": "@scatter-net/scatter-net-neon-linux-arm64-gnu",
+    "description": "Prebuilt binary package for `scatter-net-neon` on `linux-arm64-gnu`.",
+    "version": "0.1.0-1",
+    "os": [
+        "linux"
+    ],
+    "cpu": [
+        "arm64"
+    ],
+    "main": "index.node",
+    "files": [
+        "index.node"
+    ],
+    "neon": {
+        "type": "binary",
+        "rust": "aarch64-unknown-linux-gnu",
+        "node": "linux-arm64-gnu",
+        "os": "linux",
+        "arch": "arm64",
+        "abi": "gnu"
+    },
+    "author": "Prokop Schield",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/prokopschield/scatter-net-neon.git"
+    },
+    "keywords": [
+        "scatter",
+        "net",
+        "p2p",
+        "file",
+        "sharing"
+    ],
+    "bugs": {
+        "url": "https://github.com/prokopschield/scatter-net-neon/issues"
+    },
+    "homepage": "https://github.com/prokopschield/scatter-net-neon#readme",
+    "license": "GPL-3.0-or-later"
+}

@@ -1,0 +1,40 @@
+{
+    "name": "@scatter-net/scatter-net-neon-darwin-x64",
+    "description": "Prebuilt binary package for `scatter-net-neon` on `darwin-x64`.",
+    "version": "0.1.0-1",
+    "os": [
+        "darwin"
+    ],
+    "cpu": [
+        "x64"
+    ],
+    "main": "index.node",
+    "files": [
+        "index.node"
+    ],
+    "neon": {
+        "type": "binary",
+        "rust": "x86_64-apple-darwin",
+        "node": "darwin-x64",
+        "os": "darwin",
+        "arch": "x64",
+        "abi": null
+    },
+    "author": "Prokop Schield",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/prokopschield/scatter-net-neon.git"
+    },
+    "keywords": [
+        "scatter",
+        "net",
+        "p2p",
+        "file",
+        "sharing"
+    ],
+    "bugs": {
+        "url": "https://github.com/prokopschield/scatter-net-neon/issues"
+    },
+    "homepage": "https://github.com/prokopschield/scatter-net-neon#readme",
+    "license": "GPL-3.0-or-later"
+}

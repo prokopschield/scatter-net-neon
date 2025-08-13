@@ -1,0 +1,40 @@
+{
+    "name": "@scatter-net/scatter-net-neon-win32-x64-msvc",
+    "description": "Prebuilt binary package for `scatter-net-neon` on `win32-x64-msvc`.",
+    "version": "0.1.0-1",
+    "os": [
+        "win32"
+    ],
+    "cpu": [
+        "x64"
+    ],
+    "main": "index.node",
+    "files": [
+        "index.node"
+    ],
+    "neon": {
+        "type": "binary",
+        "rust": "x86_64-pc-windows-msvc",
+        "node": "win32-x64-msvc",
+        "os": "win32",
+        "arch": "x64",
+        "abi": "msvc"
+    },
+    "author": "Prokop Schield",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/prokopschield/scatter-net-neon.git"
+    },
+    "keywords": [
+        "scatter",
+        "net",
+        "p2p",
+        "file",
+        "sharing"
+    ],
+    "bugs": {
+        "url": "https://github.com/prokopschield/scatter-net-neon/issues"
+    },
+    "homepage": "https://github.com/prokopschield/scatter-net-neon#readme",
+    "license": "GPL-3.0-or-later"
+}
