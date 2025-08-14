@@ -17,3 +17,58 @@ export function greeting(name: string): Greeting {
     const message = addon.hello(name);
     return { message };
 }
+
+declare module "./load.cjs" {
+    function init(config: NetConfig, state: NetState): Promise<void>;
+}
+
+export class ScatterNet {
+    private _init: Promise<void>;
+
+    constructor(config: NetConfig, state: NetState) {
+        this._init = addon.init(config, state);
+    }
+}
+
+export interface NetConfig {
+    lake: DataLakeConfig;
+    peer_groups: PeerGroupConfig[];
+    secret_key: string | null;
+}
+
+export interface NetState {
+    peers: PeerState[];
+}
+
+export interface ConfigStoreEntry {
+    filename: string;
+    readonly: boolean;
+}
+
+export interface DataLakeConfig {
+    stores: ConfigStoreEntry[];
+}
+
+export interface PeerGroupConfig {
+    members: string[];
+    name: string;
+    open: boolean;
+    rtt_cap_ms: number;
+}
+
+export interface PeerState {
+    node_id: string;
+    usage: PeerUsage;
+    terminated?: boolean;
+}
+
+export interface PeerUsage {
+    sent_fetch_success: number;
+    sent_put_success: number;
+    served_fetch_requests: number;
+    served_put_requests: number;
+    received_unsol_fetch: number;
+    received_unsol_put: number;
+    reputation_score: number;
+    our_reputation_score: number;
+}

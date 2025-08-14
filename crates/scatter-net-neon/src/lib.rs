@@ -1,6 +1,8 @@
 // Use #[neon::export] to export Rust functions as JavaScript functions.
 // See more at: https://docs.rs/neon/latest/neon/attr.export.html
 
+mod methods;
+
 #[neon::export]
 fn hello(name: String) -> String {
     format!("hello {name}")
