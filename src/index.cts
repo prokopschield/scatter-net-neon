@@ -41,6 +41,10 @@ export class ScatterNet {
 
         return await addon.put(net, data);
     }
+
+    async put_string(data: string): Promise<string> {
+        return await this.put_blob(Buffer.from(data));
+    }
 }
 
 export interface NetConfig {
