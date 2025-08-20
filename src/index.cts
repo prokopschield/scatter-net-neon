@@ -18,12 +18,18 @@ export function greeting(name: string): Greeting {
     return { message };
 }
 
+declare const _Inner: unique symbol;
+
+export type Inner = {
+    readonly [_Inner]: unknown;
+};
+
 declare module "./load.cjs" {
-    function init(config: NetConfig, state: NetState): Promise<void>;
+    function init(config: NetConfig, state: NetState): Promise<Inner>;
 }
 
 export class ScatterNet {
-    private _init: Promise<void>;
+    private _init: Promise<Inner>;
 
     constructor(config: NetConfig, state: NetState) {
         this._init = addon.init(config, state);
