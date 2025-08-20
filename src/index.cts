@@ -45,6 +45,10 @@ export class ScatterNet {
     async put_string(data: string): Promise<string> {
         return await this.put_blob(Buffer.from(data));
     }
+
+    async put_json<O>(data: O): Promise<string> {
+        return await this.put_string(JSON.stringify(data));
+    }
 }
 
 export interface NetConfig {
