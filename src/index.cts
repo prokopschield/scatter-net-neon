@@ -26,6 +26,7 @@ export type Inner = {
 
 declare module "./load.cjs" {
     function init(config: NetConfig, state: NetState): Promise<Inner>;
+    function fetch(net: Inner, hkey: string): Promise<Buffer>;
     function put(net: Inner, blob: Buffer): Promise<string>;
 }
 
@@ -34,6 +35,12 @@ export class ScatterNet {
 
     constructor(config: NetConfig, state: NetState) {
         this._init = addon.init(config, state);
+    }
+
+    async fetch_blob(hkey: string): Promise<Buffer> {
+        const net = await this._init;
+
+        return await addon.fetch(net, hkey);
     }
 
     async put_blob(data: Buffer): Promise<string> {
