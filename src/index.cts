@@ -39,8 +39,9 @@ export class ScatterNet {
 
     async fetch_blob(hkey: string): Promise<Buffer> {
         const net = await this._init;
+        const { buffer, byteOffset, length } = await addon.fetch(net, hkey);
 
-        return await addon.fetch(net, hkey);
+        return Buffer.from(buffer, byteOffset, length);
     }
 
     async put_blob(data: Buffer): Promise<string> {
