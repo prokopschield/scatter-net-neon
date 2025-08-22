@@ -37,25 +37,25 @@ export class ScatterNet {
         this._init = addon.init(config, state);
     }
 
-    async fetch_blob(hkey: string): Promise<Buffer> {
+    async fetchBlob(hkey: string): Promise<Buffer> {
         const net = await this._init;
         const { buffer, byteOffset, length } = await addon.fetch(net, hkey);
 
         return Buffer.from(buffer, byteOffset, length);
     }
 
-    async put_blob(data: Buffer): Promise<string> {
+    async putBlob(data: Buffer): Promise<string> {
         const net = await this._init;
 
         return await addon.put(net, data);
     }
 
-    async put_string(data: string): Promise<string> {
-        return await this.put_blob(Buffer.from(data));
+    async putString(data: string): Promise<string> {
+        return await this.putBlob(Buffer.from(data));
     }
 
-    async put_json<O>(data: O): Promise<string> {
-        return await this.put_string(JSON.stringify(data));
+    async putJson<O>(data: O): Promise<string> {
+        return await this.putString(JSON.stringify(data));
     }
 }
 
