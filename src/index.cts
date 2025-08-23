@@ -69,7 +69,7 @@ export class ScatterNet {
         return await this.putBlob(Buffer.from(data));
     }
 
-    async putJson<O>(data: O): Promise<string> {
+    async putJson<T>(data: T): Promise<string> {
         return await this.putString(JSON.stringify(data));
     }
 }
