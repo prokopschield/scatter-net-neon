@@ -55,6 +55,10 @@ export class ScatterNet {
         return buffer.toString(encoding, start, end);
     }
 
+    async fetchJson<T>(hkey: string): Promise<T> {
+        return JSON.parse(await this.fetchString(hkey));
+    }
+
     async putBlob(data: Buffer): Promise<string> {
         const net = await this._init;
 
