@@ -1,4 +1,5 @@
 bun.lockb
+Cargo.lock
 cargo.log
 cross.log
 **/.DS_Store
