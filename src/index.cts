@@ -52,11 +52,11 @@ export class ScatterNet {
         return new this(await addon.init(config, state));
     }
 
-    async exportConfig() {
+    exportConfig() {
         return addon.exportConfig(this.inner);
     }
 
-    async exportState() {
+    exportState() {
         return addon.exportState(this.inner);
     }
 
