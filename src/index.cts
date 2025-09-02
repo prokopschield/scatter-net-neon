@@ -46,22 +46,22 @@ declare module "./load.cjs" {
 }
 
 export class ScatterNet {
-    private _init: Promise<Inner>;
+    constructor(private readonly inner: Inner) {}
 
-    constructor(config: NetConfig, state: NetState) {
-        this._init = addon.init(config, state);
+    static async init(config: NetConfig, state: NetState): Promise<ScatterNet> {
+        return new this(await addon.init(config, state));
     }
 
     async exportConfig() {
-        return addon.exportConfig(await this._init);
+        return addon.exportConfig(this.inner);
     }
 
     async exportState() {
-        return addon.exportState(await this._init);
+        return addon.exportState(this.inner);
     }
 
     async fetchBlob(hkey: string): Promise<Buffer> {
-        const net = await this._init;
+        const net = this.inner;
         const { buffer, byteOffset, length } = await addon.fetch(net, hkey);
 
         return Buffer.from(buffer, byteOffset, length);
@@ -74,7 +74,7 @@ export class ScatterNet {
         arg_1: number | Range = 0,
         end: number = Number.MAX_SAFE_INTEGER
     ): Promise<Buffer> {
-        const net = await this._init;
+        const net = this.inner;
         const range = typeof arg_1 === "number" ? { start: arg_1, end } : arg_1;
         const fetched = await addon.fetchSlice(net, hkey, range);
         const { buffer, byteOffset, length } = fetched;
@@ -98,7 +98,7 @@ export class ScatterNet {
     }
 
     async putBlob(data: Buffer): Promise<string> {
-        const net = await this._init;
+        const net = this.inner;
 
         return await addon.put(net, data);
     }
