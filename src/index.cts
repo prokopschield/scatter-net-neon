@@ -31,6 +31,9 @@ export interface Range {
 
 declare module "./load.cjs" {
     function init(config: NetConfig, state: NetState): Promise<Inner>;
+
+    function exportState(net: Inner): NetState;
+
     function fetch(net: Inner, hkey: string): Promise<Buffer>;
     function put(net: Inner, blob: Buffer): Promise<string>;
 
@@ -46,6 +49,10 @@ export class ScatterNet {
 
     constructor(config: NetConfig, state: NetState) {
         this._init = addon.init(config, state);
+    }
+
+    async exportState() {
+        return addon.exportState(await this._init);
     }
 
     async fetchBlob(hkey: string): Promise<Buffer> {
