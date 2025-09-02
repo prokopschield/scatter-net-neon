@@ -24,10 +24,21 @@ export type Inner = {
     readonly [_Inner]: unknown;
 };
 
+export interface Range {
+    start: number;
+    end: number;
+}
+
 declare module "./load.cjs" {
     function init(config: NetConfig, state: NetState): Promise<Inner>;
     function fetch(net: Inner, hkey: string): Promise<Buffer>;
     function put(net: Inner, blob: Buffer): Promise<string>;
+
+    function fetchSlice(
+        net: Inner,
+        hkey: string,
+        range: Range
+    ): Promise<Buffer>;
 }
 
 export class ScatterNet {
@@ -40,6 +51,21 @@ export class ScatterNet {
     async fetchBlob(hkey: string): Promise<Buffer> {
         const net = await this._init;
         const { buffer, byteOffset, length } = await addon.fetch(net, hkey);
+
+        return Buffer.from(buffer, byteOffset, length);
+    }
+
+    async fetchSlice(hkey: string, range: Range): Promise<Buffer>;
+    async fetchSlice(hkey: string, start: number, end: number): Promise<Buffer>;
+    async fetchSlice(
+        hkey: string,
+        arg_1: number | Range = 0,
+        end: number = Number.MAX_SAFE_INTEGER
+    ): Promise<Buffer> {
+        const net = await this._init;
+        const range = typeof arg_1 === "number" ? { start: arg_1, end } : arg_1;
+        const fetched = await addon.fetchSlice(net, hkey, range);
+        const { buffer, byteOffset, length } = fetched;
 
         return Buffer.from(buffer, byteOffset, length);
     }

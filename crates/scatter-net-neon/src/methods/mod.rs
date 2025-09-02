@@ -1,3 +1,4 @@
 mod fetch;
+mod fetch_slice;
 mod init;
 mod put;
