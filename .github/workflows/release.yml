@@ -1,6 +1,6 @@
 name: Release
 
-run-name: |
+run-name: >
     ${{ (inputs.dryrun && 'Dry run')
      || format('Release: {0}', (inputs.version == 'custom' && inputs.custom) || inputs.version) }}
 
@@ -48,11 +48,13 @@ jobs:
               run: |
                   echo '::error::No custom version number provided'
                   exit 1
+
             - id: dryrun
               name: Validate Dry Run Event
               if: ${{ inputs.dryrun }}
               shell: bash
-              run: echo dryrun=true | tee -a $GITHUB_OUTPUT
+              run: echo "dryrun=true" >> "$GITHUB_OUTPUT"
+
             - id: publish
               name: Validate Publish Event
               if: ${{ !inputs.dryrun }}
@@ -72,23 +74,26 @@ jobs:
                     echo "::error::See https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions for info about how to store GitHub repo secrets."
                     exit 1
                   fi
-                  echo publish=true | tee -a $GITHUB_OUTPUT
+                  echo "publish=true" >> "$GITHUB_OUTPUT"
+
             - name: Checkout Code
               uses: actions/checkout@v3
+
             - name: Setup Neon Environment
               uses: ./.github/actions/setup
               with:
                   use-rust: false
+
             - name: Tag Release
               if: ${{ !inputs.dryrun }}
               id: tag
               shell: bash
               run: |
-                  git config --global user.name $ACTIONS_USER
-                  git config --global user.email $ACTIONS_EMAIL
-                  npm version -m 'v%s' '${{ (inputs.version == 'custom' && inputs.custom) || inputs.version }}'
+                  git config --global user.name "$ACTIONS_USER"
+                  git config --global user.email "$ACTIONS_EMAIL"
+                  npm version -m 'v%s' "${{ (inputs.version == 'custom' && inputs.custom) || inputs.version }}"
                   git push --follow-tags
-                  echo tag=$(git describe --abbrev=0) | tee -a $GITHUB_OUTPUT
+                  echo "tag=$(git describe --abbrev=0)" >> "$GITHUB_OUTPUT"
 
     build:
         name: Build
@@ -99,9 +104,9 @@ jobs:
         with:
             ref: ${{ needs.setup.outputs.ref }}
             tag: ${{ needs.setup.outputs.tag }}
-            update-version: ${{ !!needs.setup.outputs.dryrun }}
+            update-version: ${{ !needs.setup.outputs.dryrun }}
             version: ${{ (inputs.version == 'custom' && inputs.custom) || inputs.version }}
-            github-release: ${{ !!needs.setup.outputs.publish }}
+            github-release: ${{ needs.setup.outputs.publish }}
 
     publish:
         name: Publish
@@ -115,21 +120,24 @@ jobs:
               uses: actions/checkout@v3
               with:
                   ref: ${{ needs.setup.outputs.ref }}
+
             - name: Setup Neon Environment
               uses: ./.github/actions/setup
               with:
                   use-rust: false
+
             - name: Fetch
               uses: robinraju/release-downloader@c39a3b234af58f0cf85888573d361fb6fa281534 # v1.10
               with:
                   tag: ${{ needs.setup.outputs.tag }}
                   fileName: "*.tgz"
                   out-file-path: ./dist
+
             - name: Publish
               shell: bash
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
               run: |
-                  for p in ./dist/*.tgz ; do
-                    npm publish --access public $p
+                  for p in ./dist/*.tgz; do
+                    npm publish --access public "$p"
                   done
