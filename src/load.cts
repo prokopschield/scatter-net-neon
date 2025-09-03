@@ -8,14 +8,14 @@
 module.exports = require("@neon-rs/load").proxy({
     platforms: {
         "win32-x64-msvc": () =>
-            require("@scatter-net/scatter-net-neon-win32-x64-msvc"),
-        "darwin-x64": () => require("@scatter-net/scatter-net-neon-darwin-x64"),
+            require("@scatter-net/win32-x64-msvc"),
+        "darwin-x64": () => require("@scatter-net/darwin-x64"),
         "darwin-arm64": () =>
-            require("@scatter-net/scatter-net-neon-darwin-arm64"),
+            require("@scatter-net/darwin-arm64"),
         "linux-x64-gnu": () =>
-            require("@scatter-net/scatter-net-neon-linux-x64-gnu"),
+            require("@scatter-net/linux-x64-gnu"),
         "linux-arm64-gnu": () =>
-            require("@scatter-net/scatter-net-neon-linux-arm64-gnu"),
+            require("@scatter-net/linux-arm64-gnu"),
     },
     debug: () => require("../index.node"),
 });

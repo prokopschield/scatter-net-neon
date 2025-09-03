@@ -38,7 +38,6 @@
     "neon": {
         "type": "library",
         "org": "@scatter-net",
-        "prefix": "scatter-net-neon-",
         "platforms": "common",
         "load": "./src/load.cts"
     },
