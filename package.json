@@ -1,6 +1,6 @@
 {
     "name": "scatter-net-neon",
-    "version": "0.1.0-1",
+    "version": "0.1.0",
     "description": "Node.js bindings for scatter-net",
     "main": "./lib/index.cjs",
     "scripts": {

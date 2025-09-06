@@ -1,7 +1,7 @@
 {
     "name": "@scatter-net/win32-x64-msvc",
     "description": "Prebuilt binary package for `scatter-net-neon` on `win32-x64-msvc`.",
-    "version": "0.1.0-1",
+    "version": "0.1.0",
     "os": [
         "win32"
     ],

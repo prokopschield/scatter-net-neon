@@ -1,7 +1,7 @@
 {
     "name": "@scatter-net/linux-x64-gnu",
     "description": "Prebuilt binary package for `scatter-net-neon` on `linux-x64-gnu`.",
-    "version": "0.1.0-1",
+    "version": "0.1.0",
     "os": [
         "linux"
     ],
