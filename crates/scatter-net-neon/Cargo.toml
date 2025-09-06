@@ -13,4 +13,7 @@ crate-type = ["cdylib"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-neon = "1.1"
+bytes = "1.10.1"
+neon = { version = "1.1.1", features = ["futures", "serde", "tokio"] }
+ps-hkey = "0.1.0-26"
+scatter-net = "0.1.0-2"
