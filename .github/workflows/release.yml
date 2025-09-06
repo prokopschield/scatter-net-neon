@@ -104,9 +104,9 @@ jobs:
         with:
             ref: ${{ needs.setup.outputs.ref }}
             tag: ${{ needs.setup.outputs.tag }}
-            update-version: ${{ !needs.setup.outputs.dryrun }}
+            update-version: ${{ needs.setup.outputs.dryrun != 'true' }}
             version: ${{ (inputs.version == 'custom' && inputs.custom) || inputs.version }}
-            github-release: ${{ needs.setup.outputs.publish }}
+            github-release: ${{ needs.setup.outputs.publish == 'true' }}
 
     publish:
         name: Publish
