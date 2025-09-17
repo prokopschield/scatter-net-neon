@@ -1,7 +1,7 @@
 {
     "name": "@scatter-net/darwin-arm64",
     "description": "Prebuilt binary package for `scatter-net-neon` on `darwin-arm64`.",
-    "version": "0.1.0-1",
+    "version": "0.1.0",
     "os": [
         "darwin"
     ],
